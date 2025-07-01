@@ -1,0 +1,36 @@
+import streamlit as st
+import random
+
+# Sample vocabulary (English to Spanish, can be expanded or adapted)
+vocab = {
+    "apple": "manzana",
+    "book": "libro",
+    "cat": "gato",
+    "house": "casa",
+    "car": "coche",
+}
+
+# Page setup
+st.title("🌍 Language Learner Flashcards")
+st.write("Test your vocabulary skills!")
+
+# Select a random word
+english_word = random.choice(list(vocab.keys()))
+correct_translation = vocab[english_word]
+
+# Create fake options
+options = random.sample(list(vocab.values()), 2)
+if correct_translation not in options:
+    options[random.randint(0,1)] = correct_translation
+random.shuffle(options)
+
+# Display word and choices
+st.subheader(f"What is the translation of **{english_word}** in Spanish?")
+choice = st.radio("Choose the correct answer:", options)
+
+# Check answer
+if st.button("Check Answer"):
+    if choice == correct_translation:
+        st.success("✅ Correct!")
+    else:
+        st.error(f"❌ Nope! The correct answer is: {correct_translation}")
